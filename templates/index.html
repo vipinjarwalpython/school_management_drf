@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>School Management</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+        <div class="container-fluid">
+            <a class="navbar-brand">School Management</a>
+            <a href="/student/faculty_logout/"><button type="submit" class="btn btn-danger btn-lg">Logout</button></a>
+        </div>
+    </nav>
+
+
+
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <section class="vh-100" style="background-color: #2779e2;">
+            <div class="container h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-xl-9">
+
+                        <h1 class="text-white mb-4">Student Registration</h1>
+
+                        <div class="card" style="border-radius: 15px;">
+                            <div class="card-body">
+                                {% if messages %}
+                                {% for message in messages %}
+                                <div class="alert alert-danger" role="alert">
+                                    {{message}}
+                                </div>
+
+                                {% endfor %}
+                                {% endif %}
+
+                                <div class="row align-items-center pt-4 pb-3">
+                                    <div class="col-md-3 ps-5">
+
+                                        <h6 class="mb-0">ROLL NO</h6>
+
+                                    </div>
+                                    <div class="col-md-9 pe-5">
+
+                                        <input type="number" class="form-control form-control-lg" name="rollno" />
+
+                                    </div>
+                                </div>
+
+                                <hr class="mx-n3">
+
+                                <div class="row align-items-center py-3">
+                                    <div class="col-md-3 ps-5">
+
+                                        <h6 class="mb-0">Full Name</h6>
+
+                                    </div>
+                                    <div class="col-md-9 pe-5">
+
+                                        <input type="text" class="form-control form-control-lg" name="name" />
+
+                                    </div>
+                                </div>
+                                <hr class="mx-n3">
+
+                                <div class="row align-items-center py-3">
+                                    <div class="col-md-3 ps-5">
+
+                                        <h6 class="mb-0">Age</h6>
+
+                                    </div>
+                                    <div class="col-md-9 pe-5">
+
+                                        <input type="text" class="form-control form-control-lg" name="age" />
+
+                                    </div>
+                                </div>
+                                <hr class="mx-n3">
+
+                                <div class="row align-items-center py-3">
+                                    <div class="col-md-3 ps-5">
+
+                                        <h6 class="mb-0">Mobile No.</h6>
+
+                                    </div>
+                                    <div class="col-md-9 pe-5">
+
+                                        <input type="phone" class="form-control form-control-lg" name="mobile" />
+
+                                    </div>
+                                </div>
+
+
+
+                                <hr class="mx-n3">
+
+                                <div class="row align-items-center py-3">
+                                    <div class="col-md-3 ps-5">
+
+                                        <h6 class="mb-0">Profile Image</h6>
+
+                                    </div>
+                                    <div class="col-md-9 pe-5">
+
+                                        <input class="form-control form-control-lg" id="image" type="file"
+                                            name="image" />
+                                        <div class="small text-muted mt-2">Upload student profile image.
+                                            Max
+                                            file
+                                            size 50 MB</div>
+
+                                    </div>
+                                </div>
+
+                                <hr class="mx-n3">
+
+                                <div class="px-5 py-4">
+                                    <button type="submit" class="btn btn-primary btn-lg">Register</button>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+
+    <section class="vh-100" style="background-color: #2779e2;">
+        <div class="container h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-xl-9">
+
+                    <h1 class="text-white mb-4">Student Data</h1>
+
+                    <div class="card" style="border-radius: 15px;">
+                        <div class="card-body">
+
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Roll No</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Age</th>
+                                        <th scope="col">Mobile</th>
+                                        <th scope="col">Image</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                {% for s in student %}
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">{{s.rollno}}</th>
+                                        <td>{{s.name}}</td>
+                                        <td>{{s.age}}</td>
+                                        <td>{{s.mobile}}</td>
+                                        <td><img src="/static/{{s.image}}" alt="No image found" width="100"
+                                                height="100">
+                                        </td>
+                                        <td><a href="/student/update/{{s.id}}"><button type="submit"
+                                                    class="btn btn-success btn-lg">Update</button></a></td>
+                                        <td><a href="/student/delete/{{s.id}}"><button type="submit"
+                                                    class="btn btn-danger btn-lg">Delete</button></a></td>
+                                    </tr>
+                                </tbody>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="" async defer></script>
+</body>
+
+</html>

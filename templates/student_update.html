@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>School Management</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+    <form action="/student/doupdate/{{student.id}}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <section class="vh-100" style="background-color: #2779e2;">
+            <div class="container h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-xl-9">
+
+                        <h1 class="text-white mb-4">Student Update</h1>
+
+                        <div class="card" style="border-radius: 15px;">
+                            <div class="card-body">
+
+                                <div class="row align-items-center pt-4 pb-3">
+                                    <div class="col-md-3 ps-5">
+
+                                        <h6 class="mb-0">ROLL NO</h6>
+
+                                    </div>
+                                    <div class="col-md-9 pe-5">
+
+                                        <input type="number" class="form-control form-control-lg" name="rollno" value = {{student.rollno}}>
+
+                                    </div>
+                                </div>
+
+                                <hr class="mx-n3">
+
+                                <div class="row align-items-center py-3">
+                                    <div class="col-md-3 ps-5">
+
+                                        <h6 class="mb-0">Full Name</h6>
+
+                                    </div>
+                                    <div class="col-md-9 pe-5">
+
+                                        <input type="text" class="form-control form-control-lg" name="name"  value = {{student.name}}>
+
+                                    </div>
+                                </div>
+                                <hr class="mx-n3">
+
+                                <div class="row align-items-center py-3">
+                                    <div class="col-md-3 ps-5">
+
+                                        <h6 class="mb-0">Age</h6>
+
+                                    </div>
+                                    <div class="col-md-9 pe-5">
+
+                                        <input type="text" class="form-control form-control-lg" name="age"  value = {{student.age}}>
+
+                                    </div>
+                                </div>
+                                <hr class="mx-n3">
+
+                                <div class="row align-items-center py-3">
+                                    <div class="col-md-3 ps-5">
+
+                                        <h6 class="mb-0">Mobile No.</h6>
+
+                                    </div>
+                                    <div class="col-md-9 pe-5">
+
+                                        <input type="phone" class="form-control form-control-lg" name="mobile" value = {{student.mobile}}>
+
+                                    </div>
+                                </div>
+
+
+
+                                <hr class="mx-n3">
+
+                                <div class="row align-items-center py-3">
+                                    <div class="col-md-3 ps-5">
+
+                                        <h6 class="mb-0">Profile Image</h6>
+
+                                    </div>
+                                    <div class="col-md-9 pe-5">
+
+                                        <input class="form-control form-control-lg" id="image" type="file"
+                                            name="image" >
+                                        <div class="small text-muted mt-2">Upload student profile image.
+                                            Max
+                                            file
+                                            size 50 MB</div>
+
+                                    </div>
+                                </div>
+
+                                <hr class="mx-n3">
+
+                                <div class="px-5 py-4">
+                                    <button type="submit" class="btn btn-primary btn-lg">Update</button>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+
+    <script src="" async defer></script>
+</body>
+
+</html>
