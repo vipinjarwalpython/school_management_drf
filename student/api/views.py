@@ -7,8 +7,7 @@ from rest_framework.views import APIView
 
 
 class StudentAPI(APIView):
-    def get(self, request, pk=None):
-        id = pk
+    def get(self, request, id=None):
         if id is not None:
             stu = Student.objects.get(pk=id)
             serializer = StudentSerializer(stu)
@@ -25,8 +24,7 @@ class StudentAPI(APIView):
             return Response({"msg": "Data Created"}, status=status.HTTP_201_CREATED)
         return Response(serializer._errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def put(self, request, pk=None):
-        id = pk
+    def put(self, request, id=None):
         stu = Student.objects.get(pk=id)
         serializer = StudentSerializer(stu, data=request.data)
         if serializer.is_valid():
@@ -34,8 +32,7 @@ class StudentAPI(APIView):
             return Response({"msg": "Complete Data Updated"})
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def patch(self, request, pk=None):
-        id = pk
+    def patch(self, request, id=None):
         stu = Student.objects.get(pk=id)
         serializer = StudentSerializer(stu, data=request.data, partial=True)
         if serializer.is_valid():
@@ -43,8 +40,7 @@ class StudentAPI(APIView):
             return Response({"msg": "Partial Data Updated"})
         return Response(serializer.errors)
 
-    def delete(self, request, pk=None):
-        id = pk
+    def delete(self, request, id=None):
         stu = Student.objects.get(pk=id)
         stu.delete()
         return Response({"msg": "Data Deleted"})
