@@ -5,6 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from faculty.models import Faculty
 import os
+from rest_framework.response import Response
+from rest_framework import status
 
 
 # Create your views here.
@@ -12,41 +14,44 @@ import os
 
 @login_required(login_url="/faculty/faculty_login/")
 def index(request):
-    # try:
-    if request.method == "POST":
-        userid = request.user.id
-        rollno = request.POST.get("rollno")
-        name = request.POST.get("name").upper()
-        age = request.POST.get("age")
-        mobile = request.POST.get("mobile")
-        image = request.FILES.get("image")
+    try:
+        if request.method == "POST":
+            userid = request.user.id
+            rollno = request.POST.get("rollno")
+            name = request.POST.get("name").upper()
+            age = request.POST.get("age")
+            mobile = request.POST.get("mobile")
+            image = request.FILES.get("image")
 
-        # print(name)
-        # print(username)
-        # print("====================================================")
+            # print(name)
+            # print(username)
+            # print("====================================================")
 
-        # jumping foreign key access
-        faculty = Faculty.objects.get(faculty=userid)
-        # print(faculty)
-        # print("++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+            # jumping foreign key access
+            faculty = Faculty.objects.get(faculty=userid)
+            # print(faculty)
+            # print("++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 
-        student = Student.objects.create(
-            faculty=faculty,
-            rollno=rollno,
-            name=name,
-            age=age,
-            mobile=mobile,
-            image=image,
-        )
-        student.save()
-        messages.success(request, "Student Registration is successfully")
-        return redirect("/student/")
-    else:
-        student = Student.objects.all().values()
-    # except Exception as E:
-    #     return response(request(E))
+            student = Student.objects.create(
+                faculty=faculty,
+                rollno=rollno,
+                name=name,
+                age=age,
+                mobile=mobile,
+                image=image,
+            )
+            student.save()
+            messages.success(request, "Student Registration is successfully")
+            return redirect("/student/")
+        else:
+            student = Student.objects.all().values()
+        # except Exception as E:
+        #     return response(request(E))
 
-    return render(request, "index.html", {"student": student})
+        return render(request, "index.html", {"student": student})
+
+    except Exception as E:
+        return Response(str(E), status=status.HTTP_400_BAD_REQUEST)
 
 
 def student_update(request, id):
@@ -55,27 +60,32 @@ def student_update(request, id):
 
 
 def student_doupdate(request, id):
-    if request.method == "POST":
-        rollno = request.POST.get("rollno")
-        name = request.POST.get("name").upper()
-        age = request.POST.get("age")
-        mobile = request.POST.get("mobile")
-        image = request.FILES.get("image")
-        # print(rollno, name)
+    try:
+        if request.method == "POST":
+            rollno = request.POST.get("rollno")
+            name = request.POST.get("name").upper()
+            age = request.POST.get("age")
+            mobile = request.POST.get("mobile")
+            image = request.FILES.get("image")
+            # print(rollno, name)
 
-    student = Student.objects.get(pk=id)
-    path = student.image.path
-    if image:
-        student.image = image
-        os.remove(path)
+        student = Student.objects.get(pk=id)
+        path = student.image.path
+
+        if image:
+            student.image = image
+            os.remove(path)
+            student.save()
+
+        student.rollno = rollno
+        student.name = name
+        student.age = age
+        student.mobile = mobile
         student.save()
+        return redirect("/student/")
 
-    student.rollno = rollno
-    student.name = name
-    student.age = age
-    student.mobile = mobile
-    student.save()
-    return redirect("/student/")
+    except Exception as E:
+        return Response(str(E), status=status.HTTP_400_BAD_REQUEST)
 
 
 def student_delete(request, id):
