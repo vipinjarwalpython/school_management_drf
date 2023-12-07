@@ -1,13 +1,12 @@
 from django.db import models
-
-from django.contrib.auth.models import User
+from faculty.models import Faculty
 
 # Create your models here.
 
 
 class Student(models.Model):
     faculty = models.ForeignKey(
-        User, verbose_name=("Faculty"), on_delete=models.CASCADE
+        Faculty, verbose_name=("Faculty"), on_delete=models.CASCADE
     )
 
     rollno = models.IntegerField()
@@ -15,4 +14,3 @@ class Student(models.Model):
     age = models.IntegerField()
     mobile = models.IntegerField()
     image = models.ImageField(upload_to="profile/")
-
