@@ -4,6 +4,7 @@ from student.models import Student
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from faculty.models import Faculty
+import os
 
 
 # Create your views here.
@@ -63,9 +64,10 @@ def student_doupdate(request, id):
         print(rollno, name)
 
     student = Student.objects.get(pk=id)
-
+    path = student.image.path
     if image:
         student.image = image
+        os.remove(path)
         student.save()
 
     student.rollno = rollno
