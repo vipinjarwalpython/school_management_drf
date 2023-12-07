@@ -23,12 +23,12 @@ def index(request):
 
         # print(name)
         # print(username)
-        print("====================================================")
+        # print("====================================================")
 
         # jumping foreign key access
         faculty = Faculty.objects.get(faculty=userid)
-        print(faculty)
-        print("++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+        # print(faculty)
+        # print("++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 
         student = Student.objects.create(
             faculty=faculty,
@@ -61,7 +61,7 @@ def student_doupdate(request, id):
         age = request.POST.get("age")
         mobile = request.POST.get("mobile")
         image = request.FILES.get("image")
-        print(rollno, name)
+        # print(rollno, name)
 
     student = Student.objects.get(pk=id)
     path = student.image.path
