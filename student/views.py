@@ -43,12 +43,13 @@ def index(request):
             student.save()
             messages.success(request, "Student Registration is successfully")
             return redirect("/student/")
+        # return render(request, "index.html")
         else:
-            student = Student.objects.all().values()
-        # except Exception as E:
-        #     return response(request(E))
+            faculty = Faculty.objects.get(faculty=request.user.id)
 
-        return render(request, "index.html", {"student": student})
+            student = Student.objects.filter(faculty=faculty.id)
+
+            return render(request, "index.html", {"student": student})
 
     except Exception as E:
         return Response(str(E), status=status.HTTP_400_BAD_REQUEST)

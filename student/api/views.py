@@ -4,9 +4,12 @@ from student.models import Student
 from student.api.serializers import StudentSerializer
 from rest_framework import status
 from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
 
 
 class StudentAPI(APIView):
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request, id=None):
         try:
             if id is not None:
