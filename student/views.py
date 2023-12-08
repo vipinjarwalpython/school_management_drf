@@ -16,14 +16,12 @@ def index(request):
     try:
         if request.method == "POST":
             userid = request.user.id
-            rollno = request.POST.get("rollno")
+            rollno = request.POST.get("rollno")  
             name = request.POST.get("name").upper()
             age = request.POST.get("age")
             mobile = request.POST.get("mobile")
             image = request.FILES.get("image")
 
-            # print(name)
-            # print(username)
             # print("====================================================")
 
             # jumping foreign key access
