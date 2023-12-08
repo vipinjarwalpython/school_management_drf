@@ -1,4 +1,3 @@
-from urllib import response
 from django.shortcuts import render, redirect
 from student.models import Student
 from django.contrib.auth.decorators import login_required
